@@ -1,7 +1,5 @@
 # flowguard-rl
 
-[![CI](https://github.com/SudiptoHaldar/flowguard-rl-public/actions/workflows/ci.yml/badge.svg)](https://github.com/SudiptoHaldar/flowguard-rl-public/actions/workflows/ci.yml)
-
 A partially observable RL environment for distributing load across capacity-constrained networks using terminal polynomial costs and explicit safety limits.
 
 ## Components
