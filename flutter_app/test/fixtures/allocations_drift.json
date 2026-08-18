@@ -1,0 +1,191 @@
+{
+ "run_id": 1091,
+ "node_names": [
+  "N1",
+  "N2",
+  "N3"
+ ],
+ "points": [
+  {
+   "step_index": 0,
+   "loads": [
+    1667.0,
+    1667.0,
+    1666.0
+   ]
+  },
+  {
+   "step_index": 3,
+   "loads": [
+    0.0,
+    1667.0,
+    1666.0
+   ]
+  },
+  {
+   "step_index": 4,
+   "loads": [
+    0.0,
+    0.0,
+    1666.0
+   ]
+  },
+  {
+   "step_index": 11,
+   "loads": [
+    0.0,
+    0.0,
+    416.0
+   ]
+  },
+  {
+   "step_index": 21,
+   "loads": [
+    0.0,
+    0.0,
+    104.0
+   ]
+  },
+  {
+   "step_index": 31,
+   "loads": [
+    0.0,
+    0.0,
+    26.0
+   ]
+  },
+  {
+   "step_index": 38,
+   "loads": [
+    19.0,
+    0.0,
+    26.0
+   ]
+  },
+  {
+   "step_index": 43,
+   "loads": [
+    19.0,
+    0.0,
+    7.0
+   ]
+  },
+  {
+   "step_index": 52,
+   "loads": [
+    19.0,
+    0.0,
+    16.0
+   ]
+  },
+  {
+   "step_index": 54,
+   "loads": [
+    10.0,
+    0.0,
+    16.0
+   ]
+  },
+  {
+   "step_index": 58,
+   "loads": [
+    10.0,
+    9.0,
+    16.0
+   ]
+  },
+  {
+   "step_index": 80,
+   "loads": [
+    10.0,
+    7.0,
+    16.0
+   ]
+  },
+  {
+   "step_index": 83,
+   "loads": [
+    12.0,
+    7.0,
+    16.0
+   ]
+  },
+  {
+   "step_index": 86,
+   "loads": [
+    12.0,
+    7.0,
+    18.0
+   ]
+  },
+  {
+   "step_index": 101,
+   "loads": [
+    12.0,
+    6.0,
+    18.0
+   ]
+  },
+  {
+   "step_index": 103,
+   "loads": [
+    12.0,
+    6.0,
+    17.0
+   ]
+  },
+  {
+   "step_index": 105,
+   "loads": [
+    13.0,
+    6.0,
+    17.0
+   ]
+  },
+  {
+   "step_index": 159,
+   "loads": [
+    13.0,
+    6.0,
+    16.0
+   ]
+  }
+ ],
+ "total_points": 160,
+ "downsampled": true,
+ "capacities": {
+  "nodes": [
+   {
+    "name": "N1",
+    "load_factor": 13.0,
+    "load_safety_cap": 18.0
+   },
+   {
+    "name": "N2",
+    "load_factor": 7.0,
+    "load_safety_cap": 10.0
+   },
+   {
+    "name": "N3",
+    "load_factor": 17.0,
+    "load_safety_cap": 20.0
+   },
+   {
+    "name": "N4",
+    "load_factor": 4.0,
+    "load_safety_cap": 6.0
+   }
+  ],
+  "matches_run": false
+ },
+ "best": {
+  "cost": 299.1856,
+  "allocations": [
+   [
+    13.0,
+    6.0,
+    17.0
+   ]
+  ]
+ }
+}

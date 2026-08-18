@@ -1,0 +1,29 @@
+{
+ "circuit_name": "C2",
+ "total_load": 60.0,
+ "nodes": [
+  {
+   "name": "N1",
+   "kind": "external",
+   "load_factor": 10.0,
+   "load_safety_cap": 16.0
+  },
+  {
+   "name": "N2",
+   "kind": "external",
+   "load_factor": 5.0,
+   "load_safety_cap": 8.0
+  }
+ ],
+ "edges": [],
+ "matches_run": true,
+ "carried": [
+  {
+   "step_index": 0,
+   "loads": [
+    10000.0,
+    10000.0
+   ]
+  }
+ ]
+}

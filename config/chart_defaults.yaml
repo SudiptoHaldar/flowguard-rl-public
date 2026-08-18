@@ -1,0 +1,19 @@
+# Tunables for the chart HTTP API (req_003 v3.02). Never hard-code these in logic.
+#
+# default_max_points: applied when a client sends no `max_points`. Capping is lossless for the
+#   curve's SHAPE — req_003 v3.01 D4 guarantees that every step where the best-so-far improved
+#   survives thinning, along with the first and the last — so this bounds payloads without
+#   trading away information. A 5,000-trial run is 5,000 points; a chart cannot draw them.
+# max_points_ceiling: the largest a client may request. There is deliberately no "unlimited"
+#   option over HTTP: an unbounded series endpoint is exactly what the cap exists to prevent.
+#   A client that wants everything asks for the ceiling.
+series:
+  default_max_points: 1000
+  max_points_ceiling: 20000
+
+# Only /runs is paginated. Scenarios and benchmark invocations are dozens, and a comparison
+# grid is 32 cells for the shipped catalog — but runs grow with every optimisation anyone
+# executes, and the dev database already holds hundreds.
+runs:
+  default_limit: 50
+  max_limit: 500

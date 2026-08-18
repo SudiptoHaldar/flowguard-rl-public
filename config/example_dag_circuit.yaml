@@ -1,0 +1,57 @@
+# C4 — DAG fixture from the user's diagram (req_001 v1.03): three external nodes
+# branching into four internal nodes, with one merge at N5 and one at N6.
+#
+# Edge weights are FRACTIONS (the diagram's 40% -> 0.4); a node's outgoing weights must
+# sum to 1. Internal nodes = nodes not listed under external_nodes.
+#
+# Coefficients are PINNED explicitly (numerically equal to the 2026-08-16 system
+# defaults) so future default changes cannot move this fixture — same freeze rationale
+# as C1/C2. Canonical acceptance: evaluate(60, {N1: 10, N2: 10, N3: 10}) ->
+# carried N4=4 N5=13 N6=11 N7=2; delay=2, overload=42, safety=15, total=59.
+circuit:
+  name: C4
+  delay_penalty_coefficients: [1]
+  nodes:
+    - name: N1
+      load_factor: 13
+      load_safety_cap: 18
+      overload_penalty_coefficients: [1, 2]
+      safety_penalty_coefficients: [1, 2, 3, 4, 5]
+    - name: N2
+      load_factor: 7
+      load_safety_cap: 10
+      overload_penalty_coefficients: [1, 2]
+      safety_penalty_coefficients: [1, 2, 3, 4, 5]
+    - name: N3
+      load_factor: 17
+      load_safety_cap: 20
+      overload_penalty_coefficients: [1, 2]
+      safety_penalty_coefficients: [1, 2, 3, 4, 5]
+    - name: N4
+      load_factor: 4
+      load_safety_cap: 7
+      overload_penalty_coefficients: [1, 2]
+      safety_penalty_coefficients: [1, 2, 3, 4, 5]
+    - name: N5
+      load_factor: 10
+      load_safety_cap: 12
+      overload_penalty_coefficients: [1, 2]
+      safety_penalty_coefficients: [1, 2, 3, 4, 5]
+    - name: N6
+      load_factor: 15
+      load_safety_cap: 20
+      overload_penalty_coefficients: [1, 2]
+      safety_penalty_coefficients: [1, 2, 3, 4, 5]
+    - name: N7
+      load_factor: 2
+      load_safety_cap: 3
+      overload_penalty_coefficients: [1, 2]
+      safety_penalty_coefficients: [1, 2, 3, 4, 5]
+  external_nodes: [N1, N2, N3]
+  edges:
+    - {from: N1, to: N4, weight: 0.4}
+    - {from: N1, to: N5, weight: 0.6}
+    - {from: N2, to: N5, weight: 0.7}
+    - {from: N2, to: N6, weight: 0.3}
+    - {from: N3, to: N6, weight: 0.8}
+    - {from: N3, to: N7, weight: 0.2}

@@ -1,0 +1,34 @@
+# Sample circuit definition mirroring the C1 example in reqspecs/planning/high_level_plan.md.
+# Interpreted by flowguard.circuits since req_001 v1.01: Circuit.from_config(path).
+#
+# Polynomial coefficient convention: ascending by degree, degree-1 first (constant term
+# implicitly zero, so every penalty is 0 at zero excess).
+#   overload [1, 2]    -> f1(x) = 1*x + 2*x^2
+#   safety   [1, 2, 3] -> f2(y) = 1*y + 2*y^2 + 3*y^3
+#   delay    [1]       -> f3(z) = 1*z
+#
+# The *_penalty_coefficients keys are OPTIONAL: absent means "use the system default
+# from config/circuit_defaults.yaml"; present means override. C1 keeps them explicit,
+# exercising the override path.
+#
+# These were equal to the system defaults until 2026-08-16, when the default safety
+# polynomial was steepened to [1, 2, 3, 4, 5]. C1/C2 deliberately KEEP safety [1, 2, 3]
+# (user decision, same day) so the worked example in reqspecs/planning/high_level_plan.md
+# — evaluate(60, {N1: 10, N2: 10}) -> delay 3, overload 55, safety 34, total 92 — stays
+# exactly as documented. C1/C2 are therefore no longer defaults-equivalent, and that is
+# intentional: a circuit that overrides is exactly what the override path is for.
+circuit:
+  name: C1
+  delay_penalty_coefficients: [1]
+  nodes:
+    - name: N1
+      load_factor: 10
+      load_safety_cap: 16
+      overload_penalty_coefficients: [1, 2]
+      safety_penalty_coefficients: [1, 2, 3]
+    - name: N2
+      load_factor: 5
+      load_safety_cap: 8
+      overload_penalty_coefficients: [1, 2]
+      safety_penalty_coefficients: [1, 2, 3]
+  external_nodes: [N1, N2]

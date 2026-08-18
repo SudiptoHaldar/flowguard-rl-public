@@ -1,0 +1,82 @@
+{
+ "circuit_name": "C4",
+ "total_load": 10000.0,
+ "nodes": [
+  {
+   "name": "N1",
+   "kind": "external",
+   "load_factor": 13.0,
+   "load_safety_cap": 18.0
+  },
+  {
+   "name": "N2",
+   "kind": "external",
+   "load_factor": 7.0,
+   "load_safety_cap": 10.0
+  },
+  {
+   "name": "N3",
+   "kind": "external",
+   "load_factor": 17.0,
+   "load_safety_cap": 20.0
+  },
+  {
+   "name": "N4",
+   "kind": "internal",
+   "load_factor": 4.0,
+   "load_safety_cap": 7.0
+  },
+  {
+   "name": "N5",
+   "kind": "internal",
+   "load_factor": 10.0,
+   "load_safety_cap": 12.0
+  },
+  {
+   "name": "N6",
+   "kind": "internal",
+   "load_factor": 15.0,
+   "load_safety_cap": 20.0
+  },
+  {
+   "name": "N7",
+   "kind": "internal",
+   "load_factor": 2.0,
+   "load_safety_cap": 3.0
+  }
+ ],
+ "edges": [
+  {
+   "source": "N1",
+   "target": "N4",
+   "weight": 0.4
+  },
+  {
+   "source": "N1",
+   "target": "N5",
+   "weight": 0.6
+  },
+  {
+   "source": "N2",
+   "target": "N5",
+   "weight": 0.7
+  },
+  {
+   "source": "N2",
+   "target": "N6",
+   "weight": 0.3
+  },
+  {
+   "source": "N3",
+   "target": "N6",
+   "weight": 0.8
+  },
+  {
+   "source": "N3",
+   "target": "N7",
+   "weight": 0.2
+  }
+ ],
+ "matches_run": false,
+ "carried": []
+}

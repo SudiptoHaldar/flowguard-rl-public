@@ -1,0 +1,25 @@
+# Normalise line endings: the repository always stores LF.
+* text=auto
+
+# Windows-only scripts must keep CRLF in the working tree.
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+*.ps1   text eol=crlf
+
+# POSIX shell scripts must keep LF everywhere.
+*.sh    text eol=lf
+gradlew text eol=lf
+
+# Binary assets — never diffed, never line-ending converted.
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.pdf   binary
+*.jar   binary
+*.keystore binary
+*.jks   binary
+
+# Generated/lock files: keep them out of diff noise and language stats.
+pubspec.lock -diff linguist-generated

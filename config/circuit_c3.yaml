@@ -1,0 +1,31 @@
+# C3 — the RL working circuit (req_002 v2.02).
+#
+# Four external nodes and NO penalty overrides, so it exercises two things C1/C2 cannot:
+# a wider allocation simplex (every measurement before this was two-node, and equal-split,
+# Dirichlet sampling and coordinate hill-climb all behave differently as the simplex widens)
+# and the *current system defaults* from config/circuit_defaults.yaml, including the steeper
+# safety polynomial f2 = [1, 2, 3, 4, 5].
+#
+# C1/C2 are deliberately frozen as the specification fixture — C1 is the worked example in
+# reqspecs/planning/high_level_plan.md and keeps its explicit safety [1, 2, 3]. C3 is where
+# RL work happens instead.
+#
+# Capacities are heterogeneous on purpose (10/5/20/2): a strategy that splits the release
+# equally cannot represent that, which is exactly the weakness the baselines are meant to
+# expose.
+circuit:
+  name: C3
+  nodes:
+    - name: N1
+      load_factor: 10
+      load_safety_cap: 16
+    - name: N2
+      load_factor: 5
+      load_safety_cap: 8
+    - name: N3
+      load_factor: 20
+      load_safety_cap: 24
+    - name: N4
+      load_factor: 2
+      load_safety_cap: 3
+  external_nodes: [N1, N2, N3, N4]

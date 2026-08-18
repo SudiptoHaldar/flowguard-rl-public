@@ -1,0 +1,24 @@
+# Core RL/MVP stack (RL_Load_Distribution_System_Design.pdf §07)
+gymnasium>=1.0
+stable-baselines3>=2.4
+torch>=2.4        # plain PyPI install = CPU-only wheel on Windows; do not add a CUDA index URL
+numpy>=1.26
+networkx>=3.2
+pandas>=2.1
+
+# Persistence (installed now, consumed from req_000 v0.02)
+SQLAlchemy>=2.0
+alembic>=1.13
+psycopg[binary]>=3.1
+
+# API (data/charting backend service)
+fastapi>=0.115
+uvicorn[standard]>=0.30
+httpx>=0.27        # also required by fastapi.testclient
+
+# Configuration
+python-dotenv>=1.0
+PyYAML>=6.0
+
+# Testing
+pytest>=8.0

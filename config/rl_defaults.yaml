@@ -1,0 +1,56 @@
+# Tunables for the RL element (req_002 v2.01). Never hard-code these in logic.
+#
+# commit_every_n_steps: how many trials the recorder buffers before committing. N=1 is
+#   per-step commit (maximum durability, one fsync per trial); larger N amortises the commit
+#   cost — a crash loses at most N trials, which is cheap because a seeded run is replayable.
+#   Evaluating a trial costs microseconds against ~1-5 ms per commit, so this knob dominates
+#   run wall-clock. No reader needs mid-run visibility: charts replay completed runs.
+# stale_run_threshold_seconds: a run still 'running' whose last_progress_at is older than
+#   this is presumed dead and swept to 'abandoned'/'interrupted' by the next listing or run
+#   creation (lazy reconciliation — there is no background daemon).
+recorder:
+  commit_every_n_steps: 50
+  stale_run_threshold_seconds: 900
+
+# Run-level tunables (req_002 v2.02).
+#
+# The trial budget is a FORMULA, not a constant: measurement showed search difficulty scales
+# linearly in the external-node count and logarithmically in the total load, so
+#   budget = max(budget_floor, ceil(budget_k * n_nodes * log2(total_load)))
+# With k=4 this leaves 1.2x-2.9x headroom over a coordinate hill-climb's convergence point
+# across n in {2,4,10} x L in {60..20000}. The floor exists so population-based learners
+# (v2.03) still get several generations on small problems.
+#
+# min_allocation is a FLOOR, not a grid: any positive load must be >= it, but values between
+# gradations are legal. It only applies in `continuous` mode — in `integer` mode the quantum
+# is naturally 1. Zero is always a legal load.
+run:
+  budget_k: 4
+  budget_floor: 50
+  min_allocation: 0.1
+
+# Per-proposer tunables (req_002 v2.02 D2.6). Proposers take these as constructor arguments
+# defaulting to None and resolve them from here, so nothing is hard-coded but experiments can
+# still override per instance. Scale-dependent values are fractions, never absolutes.
+proposers:
+  random_simplex:
+    concentration: 1.0        # Dirichlet alpha; 1.0 = uniform over the simplex
+  hill_climb:
+    initial_step_fraction: 0.25   # first step = fraction * total_load, then halving
+  release_sweep:
+    spacing: log              # z = ceil(L/S) varies as 1/S, so linear spacing wastes probes
+
+# Benchmark harness (req_002 v2.06).
+#
+# bound_factor: the optimum search enumerates allocations with sum <= factor * sum(factors).
+#   MUST stay >= 1.7: C2's optimum at L=20000 has sum 25 against a factor-sum of 15, a ratio
+#   of 1.67, so a 1.5 bound would silently miss the true optimum and report a wrong one.
+# enumeration_cap: skip enumeration when C(bound + n, n) exceeds this and fall back to
+#   best-ever-observed. 2,000,000 admits n=4 (1,426,425) and rejects n=10 (~4e14).
+# n_seeds: applies only to stochastic strategies; deterministic ones run once, because five
+#   identical runs would waste four and fabricate a dispersion of zero.
+benchmark:
+  n_seeds: 5
+  bound_factor: 2.0
+  enumeration_cap: 2000000
+  scenario_catalog: config/rl_scenarios.yaml

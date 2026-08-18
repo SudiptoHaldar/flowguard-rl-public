@@ -1,0 +1,26 @@
+# C5 — the expensive-delay circuit (req_002 v2.06).
+#
+# C2/C3/C4 all use the default delay polynomial f3(z) = z, which is cheap relative to the
+# overload and safety terms. The consequence is that all three have their optimum at or just
+# above the capacity corner — so any strategy ordering measured on them alone is an artifact
+# of one cost shape.
+#
+# C5 keeps C2's node geometry and makes delay 50x more expensive. That flips the trade-off:
+# cycles now dominate, so the optimum is pushed well ABOVE capacity and above both safety
+# caps. Verified at L=1440: optimum 2971.0 at (17, 9) — sum 26 against a capacity of 15,
+# with N1 over its cap of 16 and N2 over its cap of 8.
+#
+# That last property is deliberate: it is the only circuit in the catalog whose optimum
+# breaches the safety caps, so it is the only one that gives the benchmark's safety-incidence
+# diagnostic a non-zero value to report.
+circuit:
+  name: C5
+  delay_penalty_coefficients: [50]
+  nodes:
+    - name: N1
+      load_factor: 10
+      load_safety_cap: 16
+    - name: N2
+      load_factor: 5
+      load_safety_cap: 8
+  external_nodes: [N1, N2]

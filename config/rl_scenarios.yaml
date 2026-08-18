@@ -1,0 +1,31 @@
+# Benchmark scenario catalog (req_002 v2.06).
+#
+# Bump `version` whenever the contents change: every results row records it, so old numbers
+# stay interpretable instead of silently becoming incomparable.
+#
+# The catalog deliberately spans cost *shapes*, not just sizes:
+#   C2  flat, near-symmetric, 2 external nodes   — optimum sits on the capacity corner
+#   C3  flat, heterogeneous (10/5/20/2), 4 nodes — equal splitting cannot represent it
+#   C4  DAG with internal nodes, 3 externals     — penalties accrue at nodes nobody can address
+#   C5  expensive delay                          — optimum pushed ABOVE capacity and the caps
+#
+# Loads span the regimes where the optimum sits at, near, and above capacity: on C2 the
+# optimum sum is 15 at L=60 but 25 at L=20000.
+version: 1
+name: default
+
+strategies:
+  - hill_climb
+  - release_sweep
+  - random_simplex
+  - equal_split
+
+scenarios:
+  - circuit: C2
+    total_loads: [60, 1440, 20000]
+  - circuit: C3
+    total_loads: [60, 1440]
+  - circuit: C4
+    total_loads: [1440, 10000]
+  - circuit: C5
+    total_loads: [1440]

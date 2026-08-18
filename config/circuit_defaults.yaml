@@ -1,0 +1,18 @@
+# System-default penalty polynomials for flowguard circuits (req_001 v1.01).
+# Every node without an explicit overload/safety override, and every circuit without an
+# explicit delay override, uses these.
+#
+# Coefficient convention: ascending by degree, degree-1 first (constant term implicitly
+# zero) — see config/example_circuit.yaml.
+#   overload [1, 2]          -> f1(x) = 1*x + 2*x^2
+#   safety   [1, 2, 3, 4, 5] -> f2(y) = 1*y + 2*y^2 + 3*y^3 + 4*y^4 + 5*y^5
+#   delay    [1]             -> f3(z) = 1*z
+#
+# The safety default is deliberately far steeper than overload (degree 5 vs 2): a cap breach
+# must dominate any cycle saving it could buy. Changed 2026-08-16 from [1, 2, 3], which was
+# only mildly steeper — under heavy total loads the cost-optimal allocation breached the caps.
+# Note this is the *default*: config/example_circuit.yaml (C1/C2) overrides safety explicitly
+# with [1, 2, 3] and is unaffected, which is what keeps the plan's C1 worked example intact.
+overload_penalty_coefficients: [1, 2]
+safety_penalty_coefficients: [1, 2, 3, 4, 5]
+delay_penalty_coefficients: [1]
