@@ -159,6 +159,23 @@ Five screens, with URLs mirroring the API so a run is bookmarkable:
 | `/runs/{id}/topology` | **where the load flows** — the circuit as a DAG with each node's carried load against its own factor and safety cap |
 | `/comparison` | **comparison matrix** — scenario × strategy coloured by regret against the optimum, with `equal_split` sectioned out and cells linking back to their runs |
 
+![The topology view: circuit C4 as a DAG, mid-replay at trial 84 of 159, with two internal nodes over their safety caps](docs/images/topology.png)
+
+The shot above is `/runs/{id}/topology`, the screen that answers *where does the load actually
+end up*. External nodes (`N1`–`N3`) carry exactly what the strategy assigned them; each arrow
+is labelled with the percentage of its source node's load it carries, and internal nodes
+(`N4`–`N7`) carry whatever merges into them. Every card reads its carried load against that
+node's own factor and safety cap, and the five states — under factor, at factor, over factor,
+at safety cap, over safety cap — each get their own colour, so a cap breach is never mistaken
+for a node merely running hot.
+
+That is the point of the screen: the binding constraint is usually *internal*. Here `N5`, the
+merge of 60% of `N1` and 70% of `N2`, sits at 13.30 against a cap of 12, and `N7` is over its
+cap too — while no external node has breached anything. The heading carries the run's full
+provenance (strategy, observation mode, allocation mode, seed/budget) so a deep link is never
+anonymous, and the scrubber replays the run trial by trial, so the load visibly moves as the
+search progresses.
+
 Flutter web uses hash URLs, so a deep link is `http://localhost:PORT/#/runs/1091`.
 
 The API base URL defaults to `http://localhost:8100` and lives only in `lib/config.dart`;
